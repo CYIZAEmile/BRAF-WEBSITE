@@ -14,7 +14,6 @@ const HeroSection = ({ onStartQuiz }: { onStartQuiz: () => void }) => {
         <p className="text-accent font-medium tracking-widest uppercase text-sm mb-4">
           Where Learning Meets Fun
         </p>
-        </p>
         <h1 className="text-4xl md:text-6xl font-bold leading-tight mb-6">
           Unlock Your Child's
           <span className="text-accent"> Hidden Talent</span>
