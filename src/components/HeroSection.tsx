@@ -10,8 +10,10 @@ const HeroSection = ({ onStartQuiz }: { onStartQuiz: () => void }) => {
       <div className="absolute bottom-[-15%] left-[-5%] w-[300px] h-[300px] rounded-full bg-accent/5 blur-2xl" />
 
       <div className="container mx-auto px-6 text-center relative z-10 max-w-3xl">
+        <img src={brafLogo} alt="BRAF Ltd" className="h-24 w-auto mx-auto mb-6 rounded-xl" />
         <p className="text-accent font-medium tracking-widest uppercase text-sm mb-4">
-          Discover · Develop · Earn
+          Where Learning Meets Fun
+        </p>
         </p>
         <h1 className="text-4xl md:text-6xl font-bold leading-tight mb-6">
           Unlock Your Child's
