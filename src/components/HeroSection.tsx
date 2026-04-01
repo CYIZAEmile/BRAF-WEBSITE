@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { ArrowDown } from "lucide-react";
+import brafLogo from "@/assets/braf-logo.jpeg";
 
 const HeroSection = ({ onStartQuiz }: { onStartQuiz: () => void }) => {
   return (

@@ -1,11 +1,17 @@
+import brafLogo from "@/assets/braf-logo.jpeg";
+
 const Footer = () => {
   return (
     <footer className="bg-primary text-primary-foreground py-12">
       <div className="container mx-auto px-6 max-w-5xl">
         <div className="flex flex-col md:flex-row justify-between items-center gap-6">
-          <div>
-            <h3 className="text-xl font-bold">BRAF<span className="text-accent"> Ltd</span></h3>
-            <p className="text-primary-foreground/60 text-sm mt-1">
+          <div className="flex items-center gap-3">
+            <img src={brafLogo} alt="BRAF Ltd" className="h-12 w-auto" />
+            <div>
+              <h3 className="text-xl font-bold">BRAF<span className="text-accent"> Ltd</span></h3>
+              <p className="text-primary-foreground/60 text-sm">A legally registered company</p>
+            </div>
+          </div>
               A legally registered company
             </p>
           </div>
