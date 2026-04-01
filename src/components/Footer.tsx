@@ -12,8 +12,6 @@ const Footer = () => {
               <p className="text-primary-foreground/60 text-sm">A legally registered company</p>
             </div>
           </div>
-              A legally registered company
-            </p>
           </div>
           <div className="text-sm text-primary-foreground/60 text-center md:text-right">
             <p>Detecting, developing and monetising youth talent.</p>
