@@ -12,7 +12,6 @@ const Footer = () => {
               <p className="text-primary-foreground/60 text-sm">A legally registered company</p>
             </div>
           </div>
-          </div>
           <div className="text-sm text-primary-foreground/60 text-center md:text-right">
             <p>Detecting, developing and monetising youth talent.</p>
             <p className="mt-1">© {new Date().getFullYear()} BRAF Ltd. All rights reserved.</p>
