@@ -104,9 +104,27 @@ const TalentQuiz = ({ quizRef }: TalentQuizProps) => {
     }
   };
 
-  const handleSubmitEnquiry = (e: React.FormEvent) => {
+  const handleSubmitEnquiry = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitted(true);
+    setLoading(true);
+    try {
+      const { error } = await supabase.from("quiz_enquiries").insert({
+        full_name: name,
+        email,
+        talent_result: result!,
+        answers,
+      });
+      if (error) throw error;
+      setSubmitted(true);
+    } catch (err) {
+      toast({
+        title: "Submission failed",
+        description: "Please try again later.",
+        variant: "destructive",
+      });
+    } finally {
+      setLoading(false);
+    }
   };
 
   const restart = () => {
