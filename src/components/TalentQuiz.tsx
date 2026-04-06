@@ -74,6 +74,8 @@ const TalentQuiz = ({ quizRef }: TalentQuizProps) => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const { toast } = useToast();
 
   const handleNext = () => {
     if (!selected) return;
