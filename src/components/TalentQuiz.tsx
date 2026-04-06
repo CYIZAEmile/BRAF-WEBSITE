@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, ArrowLeft, CheckCircle } from "lucide-react";
+import { ArrowRight, ArrowLeft, CheckCircle, Loader2 } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
+import { useToast } from "@/hooks/use-toast";
 
 const questions = [
   {
@@ -72,6 +74,8 @@ const TalentQuiz = ({ quizRef }: TalentQuizProps) => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const { toast } = useToast();
 
   const handleNext = () => {
     if (!selected) return;
@@ -100,9 +104,27 @@ const TalentQuiz = ({ quizRef }: TalentQuizProps) => {
     }
   };
 
-  const handleSubmitEnquiry = (e: React.FormEvent) => {
+  const handleSubmitEnquiry = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitted(true);
+    setLoading(true);
+    try {
+      const { error } = await supabase.from("quiz_enquiries").insert({
+        full_name: name,
+        email,
+        talent_result: result!,
+        answers,
+      });
+      if (error) throw error;
+      setSubmitted(true);
+    } catch (err) {
+      toast({
+        title: "Submission failed",
+        description: "Please try again later.",
+        variant: "destructive",
+      });
+    } finally {
+      setLoading(false);
+    }
   };
 
   const restart = () => {
@@ -215,8 +237,8 @@ const TalentQuiz = ({ quizRef }: TalentQuizProps) => {
                     placeholder="Enter your email"
                   />
                 </div>
-                <Button variant="hero" type="submit" className="w-full py-6">
-                  Submit Enquiry
+                <Button variant="hero" type="submit" className="w-full py-6" disabled={loading}>
+                  {loading ? <><Loader2 className="w-4 h-4 mr-2 animate-spin" /> Submitting...</> : "Submit Enquiry"}
                 </Button>
               </form>
             </div>
