@@ -237,8 +237,8 @@ const TalentQuiz = ({ quizRef }: TalentQuizProps) => {
                     placeholder="Enter your email"
                   />
                 </div>
-                <Button variant="hero" type="submit" className="w-full py-6">
-                  Submit Enquiry
+                <Button variant="hero" type="submit" className="w-full py-6" disabled={loading}>
+                  {loading ? <><Loader2 className="w-4 h-4 mr-2 animate-spin" /> Submitting...</> : "Submit Enquiry"}
                 </Button>
               </form>
             </div>
