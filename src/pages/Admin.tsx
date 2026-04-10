@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
-import { LogOut, Trash2, Loader2, RefreshCw } from "lucide-react";
+import { LogOut, Trash2, Loader2, RefreshCw, Download } from "lucide-react";
 import brafLogo from "@/assets/braf-logo.jpeg";
 
 interface Enquiry {
@@ -49,6 +49,26 @@ const Admin = () => {
     setDeleting(null);
   };
 
+  const handleExportCSV = () => {
+    if (enquiries.length === 0) return;
+    const headers = ["Name", "Email", "Talent Match", "Answers", "Date"];
+    const rows = enquiries.map((e) => [
+      e.full_name,
+      e.email,
+      e.talent_result,
+      `"${e.answers.join(", ")}"`,
+      new Date(e.created_at).toLocaleDateString(),
+    ]);
+    const csv = [headers.join(","), ...rows.map((r) => r.join(","))].join("\n");
+    const blob = new Blob([csv], { type: "text/csv" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `braf-enquiries-${new Date().toISOString().split("T")[0]}.csv`;
+    a.click();
+    URL.revokeObjectURL(url);
+  };
+
   const handleSignOut = async () => {
     await signOut();
     navigate("/login");
@@ -89,9 +109,14 @@ const Admin = () => {
             <h2 className="text-2xl font-bold text-foreground">Enquiries</h2>
             <p className="text-sm text-muted-foreground">{enquiries.length} total submissions</p>
           </div>
-          <Button variant="outline" onClick={fetchEnquiries} disabled={loading}>
-            <RefreshCw className={`w-4 h-4 mr-2 ${loading ? "animate-spin" : ""}`} /> Refresh
-          </Button>
+          <div className="flex gap-2">
+            <Button variant="outline" onClick={handleExportCSV} disabled={loading || enquiries.length === 0}>
+              <Download className="w-4 h-4 mr-2" /> Export CSV
+            </Button>
+            <Button variant="outline" onClick={fetchEnquiries} disabled={loading}>
+              <RefreshCw className={`w-4 h-4 mr-2 ${loading ? "animate-spin" : ""}`} /> Refresh
+            </Button>
+          </div>
         </div>
 
         {loading ? (
