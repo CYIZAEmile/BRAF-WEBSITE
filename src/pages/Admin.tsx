@@ -109,9 +109,14 @@ const Admin = () => {
             <h2 className="text-2xl font-bold text-foreground">Enquiries</h2>
             <p className="text-sm text-muted-foreground">{enquiries.length} total submissions</p>
           </div>
-          <Button variant="outline" onClick={fetchEnquiries} disabled={loading}>
-            <RefreshCw className={`w-4 h-4 mr-2 ${loading ? "animate-spin" : ""}`} /> Refresh
-          </Button>
+          <div className="flex gap-2">
+            <Button variant="outline" onClick={handleExportCSV} disabled={loading || enquiries.length === 0}>
+              <Download className="w-4 h-4 mr-2" /> Export CSV
+            </Button>
+            <Button variant="outline" onClick={fetchEnquiries} disabled={loading}>
+              <RefreshCw className={`w-4 h-4 mr-2 ${loading ? "animate-spin" : ""}`} /> Refresh
+            </Button>
+          </div>
         </div>
 
         {loading ? (
