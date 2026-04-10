@@ -49,6 +49,26 @@ const Admin = () => {
     setDeleting(null);
   };
 
+  const handleExportCSV = () => {
+    if (enquiries.length === 0) return;
+    const headers = ["Name", "Email", "Talent Match", "Answers", "Date"];
+    const rows = enquiries.map((e) => [
+      e.full_name,
+      e.email,
+      e.talent_result,
+      `"${e.answers.join(", ")}"`,
+      new Date(e.created_at).toLocaleDateString(),
+    ]);
+    const csv = [headers.join(","), ...rows.map((r) => r.join(","))].join("\n");
+    const blob = new Blob([csv], { type: "text/csv" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `braf-enquiries-${new Date().toISOString().split("T")[0]}.csv`;
+    a.click();
+    URL.revokeObjectURL(url);
+  };
+
   const handleSignOut = async () => {
     await signOut();
     navigate("/login");
