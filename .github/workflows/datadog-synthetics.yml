@@ -1,0 +1,25 @@
+# This workflow has been disabled
+# The Datadog Synthetics workflow required API credentials that were not configured.
+# 
+# If you need to run E2E tests, consider using:
+# - Playwright (free, open-source)
+# - Cypress (free, open-source)  
+# - Grafana Synthetic Monitoring (free tier available)
+#
+# To restore this workflow or set up a new one, please configure:
+# 1. DD_API_KEY secret
+# 2. DD_APP_KEY secret
+# Or replace this file with a different testing solution.
+
+name: Datadog Synthetics (Disabled)
+
+on:
+  # Workflow disabled - no triggers configured
+  workflow_dispatch:
+
+jobs:
+  disabled:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Workflow Disabled
+        run: echo "This workflow has been disabled. See .github/workflows/datadog-synthetics.yml for details."
